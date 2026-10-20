@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+/* ===== Design tokens: pink + pistachio di atas latar putih ===== */
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+
+  --color-brand-pink: #f8a5c2;
+  --color-brand-pink-light: #fdeef4;
+  --color-brand-rose: #d91b5c;
+  --color-brand-rose-dark: #b0124a;
+  --color-brand-pistachio: #7ca942;
+  --color-brand-pistachio-light: #ebf3e5;
+  --color-brand-pistachio-dark: #567f26;
+  --color-ink: #1f2937;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-brand-pink);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Kartu kaca (immersive glassmorphism) */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(248, 165, 194, 0.35);
+    box-shadow: 0 18px 40px -22px rgba(217, 27, 92, 0.25);
+  }
+
+  /* Bilah progres scroll di paling atas (murni CSS, tanpa hook) */
+  .scroll-progress {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 3px;
+    z-index: 100;
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    background: linear-gradient(
+      90deg,
+      var(--color-brand-rose),
+      var(--color-brand-pink),
+      var(--color-brand-pistachio)
+    );
+  }
+}
+
+/* Animasi berbasis scroll: hanya aktif di browser yang mendukung,
+   sehingga di browser lama konten tetap tampil normal. */
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: grow-progress linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .reveal {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
+@keyframes grow-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .scroll-progress,
+  .animate-float-soft {
+    animation: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
