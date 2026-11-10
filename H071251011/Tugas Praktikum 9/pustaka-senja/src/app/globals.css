@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Palet "Senja": Midnight Tides, Coastal Coral, Horizon Line, Sunset Ember, Pacific Dusk */
+@theme inline {
+  --color-ink: #3a1c20;
+  --color-ink-deep: #0d0303;
+  --color-muted: #6b4a47;
+  --color-slate: #c5867a;
+  --color-burgundy: #673d38;
+  --color-burgundy-deep: #3f1515;
+  --color-rose: #c5867a;
+  --color-rose-soft: #f6ddd5;
+  --color-tan: #f4c7b2;
+  --color-sand: #f3ddd0;
+  --color-paper: #fbf1e8;
+  --color-olive: #b98e4b;
+  --color-olive-deep: #7a5c2e;
+  --color-leaf: #3f5a22;
+  --color-leaf-soft: #e1e9cc;
+
+  /* Emas kuningan untuk ornamen tipis */
+  --color-emas: #c9a45c;
+  --color-emas-terang: #f4c7b2;
+
+  /* Kayu rak */
+  --color-kayu: #5a2f2a;
+  --color-kayu-terang: #7d443b;
+  --color-kayu-belakang: #2e0a0a;
+
+  /* Tambahan khusus senja */
+  --color-karang: #ea7c63;
+  --color-senja-ungu: #5b5172;
+
+  --font-sans: var(--font-figtree);
+  --font-serif: var(--font-fraunces);
+
+  --animate-goyang: goyang 0.7s ease-in-out;
+}
+
+@keyframes goyang {
+  0%   { transform: rotate(0deg) translateY(0); }
+  20%  { transform: rotate(-5deg) translateY(-6px); }
+  40%  { transform: rotate(4deg) translateY(-6px); }
+  60%  { transform: rotate(-2.5deg) translateY(-3px); }
+  80%  { transform: rotate(1.2deg) translateY(-1px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-burgundy);
+  outline-offset: 2px;
+}
